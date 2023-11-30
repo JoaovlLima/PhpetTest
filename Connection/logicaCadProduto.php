@@ -9,7 +9,8 @@ if(isset($_POST['submit'])) {
     $descricao = $_POST['descricao'];
     $img = $_POST['img'];
     $tag = $_POST['tag'];
-   
+    
+    var_dump($_POST);
 
     $sql = "SELECT * FROM produto WHERE nome = '$nome'";
     $result = $conexao->query($sql);
