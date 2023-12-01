@@ -68,20 +68,22 @@ $result = $conexao->query($sql);
             </label>
 
             <label for="petiscos">Petiscos
-            <input type="radio" id="petiscos" name="tag" value="petiscos">
+             <input type="radio" id="petiscos" name="tag" value="petiscos" <?php echo (isset($_GET['tag']) && $_GET['tag'] === 'petiscos') ? 'checked' : ''; ?> onclick="filtrarProdutos('petiscos')">
             </label>
             
             <label for="brinquedos">Brinquedos
-            <input type="radio" id="brinquedos" name="tag" value="brinquedos">
+             <input type="radio" id="brinquedos" name="tag" value="brinquedos" <?php echo (isset($_GET['tag']) && $_GET['tag'] === 'brinquedos') ? 'checked' : ''; ?> onclick="filtrarProdutos('brinquedos')">    
             </label>
              
             <label for="acessorios">Acessórios
-            <input type="radio" id="acessorios" name="tag" value="acessorios">
+             <input type="radio" id="acessorios" name="tag" value="acessorios" <?php echo (isset($_GET['tag']) && $_GET['tag'] === 'acessorios') ? 'checked' : ''; ?> onclick="filtrarProdutos('acessorios')">    
             </label>
 
             <label for="limpeza">Limpeza
-            <input type="radio" id="limpeza" name="tag" value="limpeza">
+             <input type="radio" id="limpeza" name="tag" value="limpeza" <?php echo (isset($_GET['tag']) && $_GET['tag'] === 'limpeza') ? 'checked' : ''; ?> onclick="filtrarProdutos('limpeza')">    
             </label>
+
+            <button type="button" onclick="limparFiltro()">Limpar Filtro</button>
 
             <!-- Adicione outras opções de filtro conforme necessário -->
         </div>
@@ -124,6 +126,10 @@ $result = $conexao->query($sql);
     function filtrarProdutos(tag) {
         // Redireciona para a mesma página com o parâmetro 'tag' atualizado
         window.location.href = 'geraCards.php?tag=' + tag;
+    }
+    function limparFiltro(){
+        // Basicamente tirei o parâmetro 'tag' da pagina
+   window.location.href = 'geraCards.php';
     }
 </script>
 </body>
