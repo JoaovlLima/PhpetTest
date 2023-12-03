@@ -40,6 +40,8 @@ print_r($result);
       <th scope="col">ano_nasc</th>
       <th scope="col">peso</th>
       <th scope="col">img</th>
+      <th scope="col">dono</th>
+      
       <th scope="col">...</th>
       
     </tr>
@@ -59,6 +61,7 @@ echo("<td>".$user_data['sexo']."</td>");
 echo("<td>".$user_data['ano_nasc']."</td>");
 echo("<td>".$user_data['peso']."</td>");
 echo("<td>".$user_data['img']."</td>");
+echo("<td>".$user_data['usuario_id_usuario']."</td>");
 echo("<td> 
     <a href='editPet.php?id_perfilpet=$user_data[id_perfilpet]'> 
     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>

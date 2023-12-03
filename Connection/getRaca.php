@@ -21,4 +21,4 @@ if (isset($_GET['especie_id'])) {
 
 // Fechar conexão após o uso
 mysqli_close($conexao);
-?>w
+?>

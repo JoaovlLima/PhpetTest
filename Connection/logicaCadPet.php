@@ -1,9 +1,14 @@
 <?php
+session_start();
 
+if (!isset($_SESSION['email'])) {
+    header('Location: login.php');
+    exit();}
 
 if(isset($_POST['submit'])) {
     include_once("ConexaoBanco.php");
 
+    
     $nome = $_POST['nome'];
     $especie_id = $_POST['especie'];
     $raca_id = $_POST['raca'];
@@ -11,11 +16,18 @@ if(isset($_POST['submit'])) {
     $anoNasc = $_POST['anoNasc'];
     $peso = $_POST['peso'];
     $img = $_POST['img'];
-  
+    $email = $_SESSION['email'];
 
     
-    var_dump($_POST);
+    var_dump($_POST, $_SESSION);
 
+   $sqlEsp = "SELECT id_usuario FROM usuario WHERE email = '$email'";
+   $resultEsp = $conexao->query($sqlEsp);
+
+   if ($resultEsp && $resultEsp->num_rows>0){
+    $rowEsp = $resultEsp->fetch_assoc();
+    $dono = $rowEsp['id_usuario'];
+   }
    // Consulta ao banco de dados para obter o nome da espécie com base no ID recebido
    $sqlEsp = "SELECT nome FROM especie WHERE id_especie = $especie_id";
    $resultEsp = $conexao->query($sqlEsp);
@@ -33,8 +45,8 @@ if(isset($_POST['submit'])) {
        $rowEsp = $resultEsp->fetch_assoc();
        $nome_raca = $rowEsp['nome']; // Nome da raca correspondente ao ID
    }
-            $sqlInsert = "INSERT INTO perfilpet (nome, especie, raca, sexo, ano_Nasc, peso, img) 
-              VALUES ('$nome', '$nome_especie', '$nome_raca', '$sexo', '$anoNasc', '$peso', '$img')";
+            $sqlInsert = "INSERT INTO perfilpet (nome, especie, raca, sexo, ano_Nasc, peso, img, usuario_id_usuario) 
+              VALUES ('$nome', '$nome_especie', '$nome_raca', '$sexo', '$anoNasc', '$peso', '$img', '$dono')";
             $resultInsert = mysqli_query($conexao, $sqlInsert);
 
             if($resultInsert) {
@@ -47,6 +59,7 @@ if(isset($_POST['submit'])) {
 
     // Fechar conexão após o uso
     mysqli_close($conexao);
+    header('location: ../View/meusPets.php');
 } else {
     echo "Erro";
 }
