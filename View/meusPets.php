@@ -22,7 +22,11 @@ if (!isset($_SESSION['email'])) {
         <?php include_once('../Connection/meusPetsLogica.php')?>
     </div>
     </form>
-    
+    <form action="..//Connection/excluirMeuPet.php" method="POST">
+    <input type="text" name="nomePet" value="">
+   <input type="submit" name="excluir" value="excluir">
+    </form>
+    <br><br>
     <!-- Adicione este formulário para realizar o logout -->
 <form action="../Connection/logOut.php" method="POST">
     <input type="submit" value="Logout" name="logout">
