@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <link rel="stylesheet" href="/Solo/Css/header.css">
+    <link rel="stylesheet" href="agenda.css">
+</head>
+<body>
+    <nav>
+        <div class="header1">
+          <a  href=""><img id="logo" src="/Solo/Img/Logo.png" alt="Logo"></a>
+          <a  href=""><img id="telefone" src="/Solo/Img/telefone.png" alt="Contato"></a>
+          <a  href=""><img id="carrinhoCompra" src="/Solo/Img/carrinhoCompra.png" alt="Carrinho de Compra"></a>
+          <a  href=""><img id="usuario" src="/Solo/Img/user.png" alt="Usuário"></a>
+          <div class="menuHb">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+          </div>
+        </div>
+        <div class="header2">
+        <a href=""><p>Produtos</p></a>
+        <a href=""><p>Veterináro</p></a>
+        <a href=""><p>Banho</p></a>
+        <a href=""><p>Contato</p></a>
+        <a href=""><p>Sobre Nós</p></a>
+        </div>
+    </nav>
+<div class="areaAgenda">
+<h1 class="titulo">MEUS PETS</h1>
+<h2 class="subtitulo">Qual pet será atendido?</h2>
+
+<div class="meuPet">
+
+<?php
+            include_once('.../Connection/ConexaoBanco.php');
+
+            // Inicializa a condição da cláusula WHERE
+            $whereCondition = '';
+
+            // Verifica se a tag foi enviada via GET e não está vazia
+            if (!isset($_SESSION['email'])) {
+                header('Location: login.php');
+                exit();}
+                else{
+                // Obtém a tag selecionada
+                $email = $_SESSION['email']
+
+                // Cria a condição WHERE com base na tag selecionada
+                $whereCondition = "WHERE tag = '$selectedTag'";
+            }
+
+            // Monta a query SQL com base na condição WHERE
+            $sql = "SELECT * FROM produto $whereCondition";
+            $result = $conexao->query($sql);
+
+            // Exibe os cards de acordo com os resultados da consulta
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='card'>";
+                echo "<h2>" . $row['nome'] . "</h2>";
+                echo "<p>Preço: R$" . $row['preco'] . "</p>";
+                echo "<p>Descrição: " . $row['descricao'] . "</p>";
+                echo "<img src='" . $row['img'] . "' alt='Imagem do Produto'>";
+                echo "<p>Tag: " . $row['tag'] . "</p>";
+                echo "</div>";
+            }
+        ?>
+</div>
+
+
+<a href="../cadPet.php" class="cadastrar">Cadastrar Pet</a>
+<button class="continuar">Continuar</button>
+</div>
+</body>
+</html>
