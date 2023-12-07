@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
     <link rel="stylesheet" href="/Solo/Css/header.css">
+    <link rel="stylesheet" href="../View/AgendaPet/agenda.css">
 </head>
 <body>
     <nav>
@@ -27,116 +31,69 @@
         <a href=""><p>Sobre Nós</p></a>
         </div>
     </nav>
+<div class="areaAgenda">
+<h1 class="titulo">MEUS PETS</h1>
+<h2 class="subtitulo">Qual pet será atendido?</h2>
+<br>
+<div class="areaPet">
+<div class="meuPet">
+
+<?php
+            include_once('../Connection/ConexaoBanco.php');
+
+            // Inicializa a condição da cláusula WHERE
+            $whereCondition = '';
+
+            // Verifica se a tag foi enviada via GET e não está vazia
+            if (!isset($_SESSION['email'])) {
+                header('Location: login.php');
+                exit();}
+                else{
+                // Obtém a tag selecionada
+                $email = $_SESSION['email'];
+
+                // Pegando o id do email logado
+                $sqlEsp = "SELECT id_usuario FROM usuario WHERE email = '$email'";
+                $resultEsp = $conexao->query($sqlEsp);
+             
+                if ($resultEsp && $resultEsp->num_rows>0){
+                 $rowEsp = $resultEsp->fetch_assoc();
+                 $id_usuario = $rowEsp['id_usuario'];
+                }
+                
+                
+            }
+
+            // Monta a query SQL com base na condição WHERE
+            $sql = "SELECT id_perfilpet, nome, img FROM perfilpet WHERE usuario_id_usuario = $id_usuario";
+    $result = $conexao->query($sql);
+
+            // Exibe os cards de acordo com os resultados da consulta
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='areaPet' onclick='selecionarPet(this)'>";
+                echo "<div class='imagemPet' id='imagemPet' >";
+                echo "<img src='" .$row['img'] . "' alt=''>";
+                echo "</div>";
+                echo "<h2>" . $row['nome'] . "</h2>";
+                echo "</div>";
+            
+                
+            }
+        ?>
+        
+</div>
+<a href="cadPet.php" class="cadastrar">Cadastrar Pet</a>
+</div>
+<br><br><br>
+
+
+<button disabled id="continuar" class="continuar">Continuar</button>
+</div>
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
-* {
-    margin: 0;
-}
-body{
-    background-color:#FFF9F0;
-}
-
-/* ------ Header ---------- */
-nav {
-    width: 100%;
-    height: 11vw;
-}
-
-.header1 {
-   height: 7vw;
-   width: 100%;
-   background-color: #EEE3E3;
-}
-
-.header2 {
-    height: 3.5vw;
-    width: 100%;
-    background-color: #7A1858;
-    text-decoration: none;
-}
-
-#logo {
-   position: relative;
-   height: 7vw;
-   width: 7vw;
-   left: 45%;
-}
-
-#telefone {
-    position: relative;
-    height: 2.5vw;
-    width: 2.5vw;
-    left: 74%;
-    bottom: 20%;
-}
-
-#telefone:hover {
-    transform: scale(1.20);
-    transition: 0.3s;
-}
-
-#carrinhoCompra {
-    position: relative;
-    height: 2.5vw;
-    width: 2.5vw;
-    left: 78%;
-    bottom: 20%;
-}
-
-#carrinhoCompra:hover {
-    transform: scale(1.20);
-    transition: 0.3s;
-}
-
-#usuario {
-    position: relative;
-    height: 2.5vw;
-    width: 2.5vw;
-    left: 82%;
-    bottom: 20%;
-}
-
-#usuario:hover {
-    transform: scale(1.20);
-    transition: 0.3s;
-}
-
-.header2 {
-display: flex;
-justify-content: space-around;
-}
-
-.header2 p{
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.15vw;
-    text-decoration: none;
-}
-
-.header2 a{
-    text-decoration: none;
-    position: relative;
-    top: 30%;
-}
-
-.header2 p:hover {
-    transform: scale(1.20);
-    transition: 0.3s;
-}
-
-.header2 p:hover {
-    transform: scale(1.20);
-    transition: 0.3s;
-}
-
-.menuHb {
-
-}
 </style>
-
-<h1>MEUS PETS</h1>
-
-
+<script>
+</script>
 </body>
+<script src="../View./AgendaPet/agenda.js"></script>
 </html>
