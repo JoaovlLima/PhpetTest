@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
     <link rel="stylesheet" href="/Solo/Css/header.css">
-    <link rel="stylesheet" href="../View./AgendaPet/agenda.css">
+    <link rel="stylesheet" href="../View/AgendaPet/agenda.css">
 </head>
 <body>
     <nav>
@@ -42,14 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href=""><p>Sobre Nós</p></a>
         </div>
     </nav>
-<div class="secao" id="secaoMeusPets">
-<div class="areaAgenda">
-<h1 class="titulo">MEUS PETS</h1>
-<h2 class="subtitulo">Qual pet será atendido?</h2>
-<br>
-<div class="areaPet">
-<div class="meuPet">
-<form action="agendarPetPag2.php" method="POST" id="formPet" style="display: flex;">
+
+<div class="secao" id="secaoSelecaoRealizada">
+<div class="areaServico">
+        <div id="petSelecionado">
+        <div class="meuPetSelec">
+
 <?php
             include_once('../Connection/ConexaoBanco.php');
 
@@ -57,32 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $whereCondition = '';
 
             // Verifica se a tag foi enviada via GET e não está vazia
-            if (!isset($_SESSION['email'])) {
-                header('Location: login.php');
-                exit();}
-                else{
-                // Obtém a tag selecionada
-                $email = $_SESSION['email'];
-
-                // Pegando o id do email logado
-                $sqlEsp = "SELECT id_usuario FROM usuario WHERE email = '$email'";
-                $resultEsp = $conexao->query($sqlEsp);
-             
-                if ($resultEsp && $resultEsp->num_rows>0){
-                 $rowEsp = $resultEsp->fetch_assoc();
-                 $id_usuario = $rowEsp['id_usuario'];
-                }
-                
-                
-            }
 
             // Monta a query SQL com base na condição WHERE
-            $sql = "SELECT id_perfilpet, nome, img FROM perfilpet WHERE usuario_id_usuario = $id_usuario";
+            $sql = "SELECT id_perfilpet, nome, img FROM perfilpet WHERE nome = '$nomePet'";
     $result = $conexao->query($sql);
 
             // Exibe os cards de acordo com os resultados da consulta
             while ($row = $result->fetch_assoc()) {
-                echo "<div class='areaPet' onclick='selecionarPet(this, event)'>";
+                echo "<div class='areaPet2'>";
                 echo "<div class='imagemPet' id='imagemPet' >";
                 echo "<img src='" .$row['img'] . "' alt=''>";
                 echo "</div>";
@@ -94,17 +74,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ?>
         
 </div>
-<a href="cadPet.php" class="cadastrar">Cadastrar Pet</a>
-</div>
+           
+            <hr>
+        <h2>Serviços</h2>
+        <br>
+        <div class="servico">Consultas</div>
+        <br>
+        <div class="servico">Vacinas</div>
+           
+        <!-- Outras informações ou ações relacionadas à seleção realizada -->
+        <button id="voltar" class="voltar" onclick="voltar()">Voltar</button>
+    </div>
+    </div>
+    </div>
+    <?php
 
-<br><br><br>
+    // Exibe o nome do pet
+    echo "O nome do pet é: " . $nomePet;
+    ?>
 
-<input type="hidden" id="nomePetId" name="nomePetId" value="">
-<button disabled id="continuar" class="continuar" onclick="prosseguir()" name="continuar">Continuar</button>
-</form>
-</div>
-</div>
-
+    <div class="secao" id="secaoOutraEtapa" style="display: none;">
+        <h1>realizada</h1>
+    </div>
 <style>
 </style>
 <script>
