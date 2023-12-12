@@ -66,24 +66,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<div class='imagemPet' id='imagemPet' >";
                 echo "<img src='" .$row['img'] . "' alt=''>";
                 echo "</div>";
-                echo "<h2>" . $row['nome'] . "</h2>";
-                echo "</div>";
+                echo "<div class='imgPet'>";
+                ?>
+                <h2>Escolha um serviço para</h2>
+                <?php echo "<h3>" . $row['nome'] . "</h3>";
+                      echo "</div>";
+                      echo "</div>";
             
                 
             }
         ?>
         
 </div>
-           
+           <br>
             <hr>
         <h2>Serviços</h2>
         <br>
-        <div class="servico">Consultas</div>
+        <div class="servico" id="consultas" onclick="selecionarServico(this)">Consultas</div>
         <br>
-        <div class="servico">Vacinas</div>
-           
-        <!-- Outras informações ou ações relacionadas à seleção realizada -->
+        <div class="servico" id="vacinas" onclick="selecionarServico(this)">Vacinas</div>
+           <br>
+        <div class="botoes">
         <button id="voltar" class="voltar" onclick="voltar()">Voltar</button>
+        <button disabled id="continuar" class="continuar" onclick="prosseguir()" name="continuar">Continuar</button>
+        </div>
     </div>
     </div>
     </div>

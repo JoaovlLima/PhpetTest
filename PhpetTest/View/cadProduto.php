@@ -1,3 +1,21 @@
+<?php  
+
+if (!isset($_SESSION['email'])){
+  
+  exit();
+ }
+  
+  $email = $_SESSION['email'];
+
+  $dominioFunc = 'phpet.com';
+  $partesEmail = explode('@', $email);
+  $dominioEmail = end($partesEmail);
+
+  if($dominioEmail !== $dominioFunc){
+    header('location: geraCards.php');
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>

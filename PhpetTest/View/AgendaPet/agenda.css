@@ -127,6 +127,9 @@ justify-content: space-around;
 .cadastrar{
     margin-top: 30px;
 }
+.botoes{
+    display: flex;
+}
 .continuar {
     width: 200px;
     background-color: #c2c2c2; /* Cor de fundo */
@@ -141,6 +144,21 @@ justify-content: space-around;
     cursor: pointer; /* Altera o cursor ao passar por cima */
     border-radius: 5px; /* Borda arredondada */
     cursor: not-allowed;
+  }
+  .voltar{
+    width: 200px;
+    background-color: #c2c2c2; /* Cor de fundo */
+    border: none; /* Remove a borda */
+    color: rgb(102, 102, 102); /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    text-align: center; /* Alinhamento do texto */
+    text-decoration: none; /* Remove decoração de texto */
+    display: inline-block; /* Exibe como um bloco inline */
+    font-size: 16px; /* Tamanho da fonte */
+    margin: 4px 2px; /* Margem externa */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+    border-radius: 5px; /* Borda arredondada */
+    
   }
   .imagemPet{
     display: flex;
@@ -179,7 +197,7 @@ justify-items: center;
     margin-left: -200px;
 }
 .servico{
-    width: 300px;
+    width: 380px;
     height: 50px;
     border: solid;
     border-color: rgb(104, 104, 104);
@@ -190,6 +208,11 @@ justify-items: center;
     background-color: #fafafa;
     font-size: 17px;
     font-weight: bold;
+    cursor: pointer;
+}
+#consultas.selected{
+    border-color: #050505;
+    color: #0dffba;
 }
 .meuPetSelec{
     display: flex;
@@ -198,9 +221,17 @@ justify-items: center;
 .areaPet2{
     margin-left: 20px;
     display: flex;
-    justify-content: center;
+/*     justify-content: center; */
     align-items: center;
-    }
+}
+
+.imgPet{
+    display: grid;
+    padding-left: 15px;
+}
+.imgPet h3{
+    color: #989898;
+}
 
   
 

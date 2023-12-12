@@ -1,5 +1,6 @@
 let petSelecionado = null;
 let nomePet = "";
+let servicoSelecionado = null;
 
 
 
@@ -41,9 +42,31 @@ function selecionarPet(elemento,event) {
         }
     };
     xhr.send(JSON.stringify(dadosEnviar));
+
+
+    ///////////////////////////////////
+    //Função Serviço//
 }
+function selecionarServico(elemento) {
+    
+    const continuar = document.getElementById("continuar");
+    const servico = elemento.querySelector('div');
+    
+  const servicoID = elemento.id;
+    
+    servicoSelecionado = elemento;
+    continuar.disabled = false;
+    continuar.style.cursor = "pointer";
+    continuar.style.backgroundColor = "#7A1858";
+    continuar.style.color = "white";
+    servico.style.color = "#7A1858"
+    
 
+    nomePet = elemento.querySelector("h2").textContent;
+    document.getElementById('nomePetId').value = nomePet;
 
+}
+//////////////////////////////////////////
 
 function voltar() {
     window.location.href = 'agendarPet.php';
